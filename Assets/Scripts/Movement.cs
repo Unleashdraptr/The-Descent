@@ -9,8 +9,8 @@ public class Movement : MonoBehaviour
     private SpriteRenderer sprite;
     
     [SerializeField] private bool doubleJump;
-
     [SerializeField] private LayerMask jumpableGround;
+    [SerializeField] private int stamina;
 
     private enum MovementState { idle, running, jumping, falling }
 
@@ -21,6 +21,7 @@ public class Movement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         doubleJump = true;
+        stamina = 100;
     }
 
     // Update is called once per frame
@@ -28,7 +29,26 @@ public class Movement : MonoBehaviour
     {
         float dirX = Input.GetAxis("Horizontal");
         float extraSpeed = Input.GetAxisRaw("Sprint");
-        rb.velocity = new Vector2(dirX * (7f + (extraSpeed*7)), rb.velocity.y);
+        if (stamina > 0)
+        {
+            rb.velocity = new Vector2(dirX * (7f + (extraSpeed*21)), rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(dirX * (3.5f), rb.velocity.y);
+        }
+
+        if (extraSpeed > 0 && Mathf.Abs(dirX) > 0)
+        {
+            if (stamina > 0)
+            {
+                stamina -= 1;
+            }
+        }
+        else if (stamina < 100)
+        {
+            stamina += 1;
+        }
 
         if (dirX > 0)
         {
@@ -57,5 +77,4 @@ public class Movement : MonoBehaviour
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
-
 }
