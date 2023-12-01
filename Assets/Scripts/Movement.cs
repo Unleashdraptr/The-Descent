@@ -29,6 +29,7 @@ public class Movement : MonoBehaviour
     {
         float dirX = Input.GetAxis("Horizontal");
         float extraSpeed = Input.GetAxisRaw("Sprint");
+        
         if (stamina > 0)
         {
             rb.velocity = new Vector2(dirX * (7f + (extraSpeed*21)), rb.velocity.y);
