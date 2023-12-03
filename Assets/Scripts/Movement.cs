@@ -76,6 +76,6 @@ public class Movement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+        return Physics2D.BoxCast(coll.bounds.min, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
 }
