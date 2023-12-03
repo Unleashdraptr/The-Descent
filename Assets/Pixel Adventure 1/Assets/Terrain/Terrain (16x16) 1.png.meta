@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 320
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -3198,12 +3198,12 @@ TextureImporter:
       Terrain (16x16) 1_56: 1624007375
       Terrain (16x16) 1_0: -1666497185
       Terrain (16x16) 1_31: -483123407
-      Terrain (16x16) 1_8: -2019199134
+      Terrain (16x16) 1_90: -1991452720
       Terrain (16x16) 1_64: -1629241299
       Terrain (16x16) 1_143: 1598364401
       Terrain (16x16) 1_36: 1960323261
       Terrain (16x16) 1_14: 180017475
-      Terrain (16x16) 1_90: -1991452720
+      Terrain (16x16) 1_8: -2019199134
       Terrain (16x16) 1_139: -1732989335
       Terrain (16x16) 1_50: 163592604
       Terrain (16x16) 1_98: 239109189
