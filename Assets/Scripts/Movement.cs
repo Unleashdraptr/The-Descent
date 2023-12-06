@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private bool doubleJump;
     [SerializeField] private LayerMask jumpableGround;
     [SerializeField] private LayerMask deadlyGround;
-    [SerializeField] private float stamina;
+    [SerializeField] public float stamina;
 
     private enum MovementState { idle, running, jumping, falling }
 
