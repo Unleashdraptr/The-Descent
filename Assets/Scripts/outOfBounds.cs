@@ -5,10 +5,14 @@ using UnityEngine;
 public class outOfBounds : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private spawnPoint sp;
+    private Health hp;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sp = GetComponent<spawnPoint>();
+        hp = GetComponent<Health>();
     }
 
     // Update is called once per frame
@@ -16,8 +20,7 @@ public class outOfBounds : MonoBehaviour
     {
         if (transform.position.y <= -30f)
         {
-            transform.position = new Vector3(-15.86f,-17f,0);
-            rb.velocity = new Vector2(0,0);
+            hp.health = 0;
         }
     }
 }

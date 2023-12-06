@@ -10,7 +10,8 @@ public class Movement : MonoBehaviour
     
     [SerializeField] private bool doubleJump;
     [SerializeField] private LayerMask jumpableGround;
-    [SerializeField] private int stamina;
+    [SerializeField] private LayerMask deadlyGround;
+    [SerializeField] private float stamina;
 
     private enum MovementState { idle, running, jumping, falling }
 
@@ -32,7 +33,7 @@ public class Movement : MonoBehaviour
         
         if (stamina > 0)
         {
-            rb.velocity = new Vector2(dirX * (7f + (extraSpeed*21)), rb.velocity.y);
+            rb.velocity = new Vector2(dirX * (7f + (extraSpeed*21*(stamina/100))), rb.velocity.y);
         }
         else
         {
@@ -43,12 +44,20 @@ public class Movement : MonoBehaviour
         {
             if (stamina > 0)
             {
-                stamina -= 1;
+                stamina -= 1 * Time.deltaTime*300;
             }
         }
         else if (stamina < 100)
         {
-            stamina += 1;
+            stamina += 1 * Time.deltaTime*300;
+        }
+        if (stamina > 100)
+        {
+            stamina = 100;
+        }
+        else if (stamina < 0)
+        {
+            stamina = 0;
         }
 
         if (dirX > 0)
@@ -77,5 +86,9 @@ public class Movement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.BoxCast(coll.bounds.min, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+    public bool isOnTrap()
+    {
+        return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, deadlyGround);
     }
 }

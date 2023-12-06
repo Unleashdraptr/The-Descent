@@ -52,7 +52,7 @@ public class grappling : MonoBehaviour
             // Force the player to move towards the grappling hook if it is further away than lineLength
             if (playerscript.distance() > lineLength)
             {
-                playerRB.AddForce(calculateForce(), ForceMode2D.Impulse);
+                playerRB.velocity = playerRB.velocity+calculateForce();
             }
 
         }
@@ -66,12 +66,14 @@ public class grappling : MonoBehaviour
     {
         return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
     }
-    private Vector3 calculateForce()
+    private Vector2 calculateForce()
     {
         Vector3 forceVector = transform.position-player.transform.position;
         float forceSize = playerscript.vector3ToScalar(forceVector);
         forceVector = forceVector/forceSize;
         forceVector = forceVector*(playerscript.distance()-lineLength);
-        return forceVector;
+        Vector2 forceVector2 = new Vector2(forceVector.x,forceVector.y);
+        forceVector2.x *= 10;
+        return forceVector2;
     }
 }
