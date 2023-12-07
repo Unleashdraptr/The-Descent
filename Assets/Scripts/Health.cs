@@ -35,6 +35,7 @@ public class Health : MonoBehaviour
             else
             {respawn();}
         }
+        
         if (isDead && rb.velocity.y <= -5f)
         {
             rb.simulated = false;

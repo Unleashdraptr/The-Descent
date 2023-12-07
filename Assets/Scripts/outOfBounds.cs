@@ -21,6 +21,8 @@ public class outOfBounds : MonoBehaviour
         if (transform.position.y <= -30f)
         {
             hp.health = 0;
+            hp.respawn();
+            hp.die();
         }
     }
 }
