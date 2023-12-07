@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] public int health;
+    [SerializeField] public float health;
     private Rigidbody2D rb;
     private spawnPoint sp;
     private Movement mvmt;
