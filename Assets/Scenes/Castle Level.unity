@@ -8854,6 +8854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 0
+  isDead: 0
 --- !u!114 &464414457
 MonoBehaviour:
   m_ObjectHideFlags: 0

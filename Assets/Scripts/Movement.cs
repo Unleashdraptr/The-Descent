@@ -8,6 +8,7 @@ public class Movement : MonoBehaviour
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
     private Animator anim;
+    private Health health;
     
     [SerializeField] private bool doubleJump;
     [SerializeField] private LayerMask jumpableGround;
@@ -23,6 +24,7 @@ public class Movement : MonoBehaviour
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        health = GetComponent<Health>();
         doubleJump = true;
         stamina = 100;
     }
@@ -35,11 +37,17 @@ public class Movement : MonoBehaviour
         
         if (stamina > 0)
         {
-            rb.velocity = new Vector2(dirX * (7f + (extraSpeed*21*(stamina/100))), rb.velocity.y);
+            if (health.isDead == false)
+            {
+                rb.velocity = new Vector2(dirX * (7f + (extraSpeed*21*(stamina/100))), rb.velocity.y);
+            }
         }
         else
         {
-            rb.velocity = new Vector2(dirX * (3.5f), rb.velocity.y);
+            if (health.isDead == false)
+            {
+                rb.velocity = new Vector2(dirX * (3.5f), rb.velocity.y);
+            }
         }
 
         if (extraSpeed > 0 && Mathf.Abs(dirX) > 0)
@@ -64,17 +72,31 @@ public class Movement : MonoBehaviour
 
         if (dirX > 0)
         {
-            sprite.flipX = false;
-            anim.SetBool("Running", true);
+            if (health.isDead == false)
+            {
+                sprite.flipX = false;
+                anim.SetBool("Running", true);
+            }
         }
         else if (dirX < 0)
         {
-            sprite.flipX = true;
-            anim.SetBool("Running", true);
+            if (health.isDead == false)
+            {
+                sprite.flipX = true;
+                anim.SetBool("Running", true);
+            }
         }
         else
         {
-            anim.SetBool("Running", false);
+            if (health.isDead == false)
+            {
+                anim.SetBool("Running", false);
+            }
+        }
+        if (health.isDead == true)
+        {
+            anim.SetBool("Dead", true);
+            sprite.color = new Color(1, 1, 1, 0.5f);
         }
 
         if (Input.GetButtonDown("Jump") && (IsGrounded() || doubleJump))

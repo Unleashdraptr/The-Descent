@@ -5,6 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] public float health;
+    [SerializeField] public bool isDead;
     private Rigidbody2D rb;
     private spawnPoint sp;
     private Movement mvmt;
@@ -16,26 +17,37 @@ public class Health : MonoBehaviour
         sp = GetComponent<spawnPoint>();
         rb = GetComponent<Rigidbody2D>();
         mvmt = GetComponent<Movement>();
+        isDead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
-        {
-            sp.resetCheckPoint();
-            die();
-            health = 100;
-        }
         if (mvmt.isOnTrap())
         {
             health -= 25;
-            die();
+            if (health <= 0)
+            {
+                sp.resetCheckPoint();
+                die();
+                health = 0;
+            }
+            else
+            {respawn();}
+        }
+        if (isDead && rb.velocity.y <= -5f)
+        {
+            rb.simulated = false;
         }
     }
-    public void die()
+    public void respawn()
     {
         transform.position = new Vector3(sp.checkpoint.x,sp.checkpoint.y,0);
         rb.velocity = new Vector2(0,0);
+    }
+    public void die()
+    {
+        isDead = true;
+        rb.velocity = new Vector2(0f,10f);
     }
 }
