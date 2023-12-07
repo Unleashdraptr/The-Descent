@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
+    private Animator anim;
     
     [SerializeField] private bool doubleJump;
     [SerializeField] private LayerMask jumpableGround;
@@ -21,6 +22,7 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
         sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         doubleJump = true;
         stamina = 100;
     }
@@ -63,10 +65,16 @@ public class Movement : MonoBehaviour
         if (dirX > 0)
         {
             sprite.flipX = false;
+            anim.SetBool("Running", true);
         }
         else if (dirX < 0)
         {
             sprite.flipX = true;
+            anim.SetBool("Running", true);
+        }
+        else
+        {
+            anim.SetBool("Running", false);
         }
 
         if (Input.GetButtonDown("Jump") && (IsGrounded() || doubleJump))
